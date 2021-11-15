@@ -6,7 +6,7 @@ const siteMetadata = {
   language: 'en-us',
   siteUrl: 'https://niki4810.github.io/',
   siteRepo: 'https://github.com/niki4810/niki4810.github.com',
-  siteLogo: '/static/images/logo.png',
+  siteLogo: '',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
   linkedin: 'http://linkedin.com/in/nkatakam',
