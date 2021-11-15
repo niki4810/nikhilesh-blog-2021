@@ -3,6 +3,7 @@ title: 'Building a Carousel In React using Typescript'
 summary: "In this blog post, I'd like to share my experience in building a basic carousel using react, hooks, typescript and some basic css."
 date: 2021-11-14 17:26
 tags: ['react', 'TypeScript', 'hooks', 'carousel', 'css']
+draft: true
 ---
 
 ## Summary

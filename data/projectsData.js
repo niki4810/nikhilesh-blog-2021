@@ -1,10 +1,10 @@
 const projectsData = [
-  {
-    title: 'basic-carousel',
-    description: "A Basic carousel implementation using react, typescript and css.",
-    imgSrc: '/static/images/bc/0-bc.gif',
-    href: 'https://github.com/niki4810/basic-carousel',
-  },
+  // {
+  //   title: 'basic-carousel',
+  //   description: "A Basic carousel implementation using react, typescript and css.",
+  //   imgSrc: '/static/images/bc/0-bc.gif',
+  //   href: 'https://github.com/niki4810/basic-carousel',
+  // },
   {
     title: "standup-shuffle",
     description: "A simple app to manage your daily standup meetings 🔀",
