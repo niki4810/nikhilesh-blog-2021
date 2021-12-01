@@ -3,7 +3,6 @@ title: 'Building a Carousel In React using Typescript'
 summary: "In this blog post, I'd like to share my experience in building a basic carousel using react, hooks, typescript and some basic css."
 date: 2021-11-14 17:26
 tags: ['react', 'TypeScript', 'hooks', 'carousel', 'css']
-draft: true
 ---
 
 ## Summary
@@ -20,10 +19,10 @@ The end result of it would be a carousel that looks like this
 
 I wanted to build a basic carousel react component with the following requirements:
 
-- It accepts tiles as children. Where each tile can be ReactNode.
-- It automatically calculates how many tiles to display based on the viewport width
-- It has a pagination buttons to horizontally scroll forward or backwards
-- It has pagination dots as well to scroll forward and backwards
+- You can pass multiple tiles as children. Where each child is a ReactNode.
+- The carousel automatically calculates how many tiles to display based on the viewport width
+- You can paginate using previous and next buttons to horizontally scroll forward or backwards
+- Alternatively you can also use the pagination dots to scroll forward and backwards
 
 ## Getting started
 
@@ -229,7 +228,7 @@ Now lets copy paste styles into `App.css`
 }
 ```
 
-The main css class to look for here is `.basic_carousel__container`. This is the container in which all the child tile elements are rendered, we use `flexbox` to horizontally layout all of it children set `overflow-x: auto;` allowing it to scroll horizontally and finally (most importantly) set `scroll-snap-type: x mandatory;` we will later programmatically set `scroll-snap-align` on certain child tiles so that as we scroll the carousel, the tile elements get scrolled and snapped at the correct point.
+The main css class to look for here is `.basic_carousel__container`. This is the container in which all the child tile elements are rendered, we use `flexbox` to horizontally layout all of it children set `overflow-x: auto;` allowing it to scroll horizontally and finally (most importantly) set `scroll-snap-type: x mandatory;` we will later programmatically set `scroll-snap-align` on certain child tiles so that as we scroll through the carousel, the tile elements get scrolled and snapped at the correct point.
 
 The next thing to note is each carousel tile, by default gets a `10px` left margin (see `.basic_carousel__tile` class), this allows spacing between each carousel tile.
 
@@ -267,7 +266,7 @@ function App() {
 }
 ```
 
-At the end of this, your app component should render something as shown below, its not functional yet, but that will be covered in the next section.
+At the end of this section, your app component should render something as shown below, its not functional yet, but that will be covered in the next section.
 
 <img src="/static/images/bc/1-bc.png" alt="basic carousel 1" />
 
@@ -284,7 +283,7 @@ export type BasicCarouselState = {
 }
 ```
 
-All the state variables are pretty self explanatory, except the `scrollPoints`. It will be clear what that is used for in a bit, for now its just an number array.
+All the state variables are pretty self explanatory, except the `scrollPoints`. It will be clear what that is used for in a bit, for now its just an array of numbers.
 
 Next create a hook for calculating our carousel state and set the initial state
 
@@ -495,19 +494,19 @@ export const useCarouselStateCalculator = (carouselContainerRef: React.RefObject
 
 Our state calculation hook is now complete. the last thing left to do is tie it up to over component and adjust a few things. To get started, within our `BasicCarousel` component:
 
-1. Create a ref for `carouselContainerRef`
+1. Create a ref called `carouselContainerRef`, this will be the ref for out carousel container.
 
 ```javascript
 const carouselContainerRef = useRef<HTMLDivElement>(null);
 ```
 
-2. Call out `useCarouselStateCalculator` hook and pass the `carouselContainerRef`
+2. Call our `useCarouselStateCalculator` hook and pass the `carouselContainerRef`
 
 ```javascript
 const { carouselState, setCarouselState } = useCarouselStateCalculator(carouselContainerRef);
 ```
 
-3. Replace the const variables with this, this basically calculates the pagination display variables from state.
+3. Replace the const variables with the code below, this basically calculates the pagination display variables from state.
 
 ```javascript
   const { totalNoOfSlides, currentSlideIndex, scrollPoints } = carouselState;
@@ -568,6 +567,7 @@ const { carouselState, setCarouselState } = useCarouselStateCalculator(carouselC
     navigateToSlideBySlideIndex(slideIndex);
   };
 ```
+The most important portion in this above code is the `scrollTo` function where we calculate the `left` position using `carouselTile.offsetLeft - (parentEl?.offsetLeft ?? 0),`, this allows us to scroll to the next tile in the list. The scrollTo also uses `behavior: smooth` allowing smooth scroll animation when paginating through carousel tiles.  
 
 5. Attach the `ref={carouselContainerRef}` to the div with className of `basic_carousel__container`
 
