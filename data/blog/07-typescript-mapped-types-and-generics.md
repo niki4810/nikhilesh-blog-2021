@@ -1,5 +1,5 @@
 ---
-title: 'My learning with Typescript Mapped Types and generics'
+title: 'My learnings with Typescript Mapped Types and generics'
 summary: "I've been working with Typescript for past couple of years. Through this blog post I'd like to share some of my learnings, specifically with Mapped Types and Generics."
 date: 2021-12-28 14:14
 tags: ['TypeScript']
